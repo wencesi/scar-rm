@@ -26,7 +26,7 @@ public class ReportScheduler {
 		Iterable<Planificador> plans = homeService.findAllOfflinePending();
 		for (Planificador plan : plans) {
 			if (plan.getTipo().equals("inf")) {
-				log.info("Ejecutando informe offline "+plan.getCodigo());
+				log.info("Ejecutandox informe offline "+plan.getCodigo());
 			} else if (plan.getTipo().equals("grp")) {
 				log.info("Ejecutando grupo offline "+plan.getCodigo());
 			} else if (plan.getTipo().equals("qry")) {
