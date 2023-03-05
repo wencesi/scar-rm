@@ -1,0 +1,64 @@
+	<!DOCTYPE html>
+	<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Columnas</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">	
+	</head>
+	
+	<body>
+	
+		<!-- cabecera -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		  <a class="navbar-brand" href="#">SCAR-RM (Reporting Module)</a>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav">
+		      <li class="nav-item">
+		        <a class="nav-link" href="/informe">Informes</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/planificador">Planificador</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+	
+		<div  class="container my-5">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Nueva columna</h2>
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+							<a th:href="@{/informe/grupo/consulta/edit/{id}(id=${consulta.id})}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left"></i> Volver</a>
+						</div>
+						<hr/>	
+						<form class="row g-3" action="#" th:action="@{/informe/grupo/consulta/{id}/columna/add(id=${consulta.id})}" th:object="${columna}" method="post">
+	
+							<div class="col-md-12">
+								<label for="sql_name" class="col-form-label">Columna SQL</label>
+								<input type="text" th:field="*{sql_name}" class="form-control" id="sql_name" placeholder="Columna SQL"/>
+								<span th:if="${#fields.hasErrors('sql_name')}" th:errors="*{sql_name}" class="text-danger"></span>
+								
+								<label for="header" class="col-form-label">Colunma Excel</label>
+								<input type="text" th:field="*{header}" class="form-control" id="header" placeholder="Columna Excel"/>
+								<span th:if="${#fields.hasErrors('header')}" th:errors="*{header}" class="text-danger"></span>							
+	
+							 	<label for="orden" class="col-form-label">Orden</label>
+								<input type="text" th:field="*{orden}" class="form-control" id="orden" placeholder="Orden"/>
+								<span th:if="${#fields.hasErrors('orden')}" th:errors="*{orden}" class="text-danger"></span>
+						  	</div>
+						 	<p class="my-5">
+						 		<input type="submit" class="btn btn-primary" value="Actualizar">
+								<a th:href="@{/informe/grupo/consulta/edit/{id}(id=${consulta.id})}" class="btn btn-secondary" role="button"><i class="bi bi-arrow-left"></i> Volver</a>
+						 	</p>
+						 	
+						</form>
+				</div>
+			</div>
+		</div>
+		
+	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>			
+	</body>
+	</html>
