@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Informes</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">	
+</head>
+
+<body>
+
+	<!-- cabecera -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="#">SCAR-RM (Reporting Module)</a>
+	  <div class="collapse navbar-collapse" id="navbarNav">
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+	        <a class="nav-link" href="/informe">Informes</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="/planificador">Planificador</a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+
+	<div th:switch="${#lists.size(informes)}" class="container my-5">
+		<div class="row">
+			<div class="col-md-12">			
+				<nav aria-label="breadcrumb">
+				  <ol class="breadcrumb">
+				    <li class="breadcrumb-item active" aria-current="page">Informes</li>
+				  </ol>
+				</nav>
+				<div th:case="'0'">
+					<h2>You haven't added any report yet!</h2>
+					<p class="text-success">Add a report by clicking below!</p>
+				</div>
+				<div th:case="*">
+					<h2 >Informes</h2>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<a href="./addreport" class="btn btn-success" role="button"><i class="bi bi-plus"></i> Añadir</a>
+					</div>
+					<hr/>
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Código</th>								
+								<th>Nombre</th>
+								<th># Grupos</th>
+								<th>Edit</th>
+								<th>Execute</th>
+								<th>Execute</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="informe : ${informes}">
+								<td th:text="${informe.id}"></td>
+								<td >
+									<a th:href="@{/informe/{id}(id=${informe.id})}" >
+										<span th:text="${informe.codigo}"/>
+									</a>								
+								</td>
+								<td th:text="${informe.nombre}"></td>
+								<td>
+									<span th:text="${#lists.size(informe.grupos)}"/>
+								</td>
+								<td><a th:href="@{/update/{id}(id=${informe.id})}" class="btn btn-primary"><i class="bi bi-pencil"></a></td>
+								<td>
+									<form action="#" th:action="@{/informe/execute/online/{id}(id=${informe.id})}" th:method="post">
+										<button type="submit" class="btn btn-primary"><i class="bi bi-lightning"> Online</i> </button>
+									</form>
+								</td>
+								<td>
+									<form action="#" th:action="@{/informe/execute/offline/{id}(id=${informe.id})}" th:method="post">
+										<button type="submit" class="btn btn-primary"><i class="bi bi-lightning"> Offline</i> </button>
+									</form>
+								</td>
+								<td>
+									<form action="#" th:action="@{/delete/{id}(id=${informe.id})}" th:method="delete">
+										<button type="submit" class="btn btn-danger"><i class="bi bi-trash"> </i> </button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>	
+</body>
+</html>
